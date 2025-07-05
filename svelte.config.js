@@ -13,7 +13,7 @@ const config = {
 		}),
 		// Configure for production domain
 		csrf: {
-			checkOrigin: false
+			checkOrigin: true
 		}
 	},
 	extensions: ['.svelte', '.svx']
