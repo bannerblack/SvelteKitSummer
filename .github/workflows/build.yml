@@ -1,7 +1,7 @@
 name: Build and Deploy SvelteKit App
 on:
   push:
-    branches: ['master']
+    branches: ['main']
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: '${{ github.repository }}'
@@ -60,6 +60,6 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
 
       - name: Deploy to Coolify
-        if: github.ref == 'refs/heads/master'
+        if: github.ref == 'refs/heads/main'
         run: |
           curl --request GET '${{ secrets.COOLIFY_WEBHOOK }}' --header 'Authorization: Bearer ${{ secrets.COOLIFY_TOKEN }}'
