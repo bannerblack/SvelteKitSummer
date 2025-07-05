@@ -1,38 +1,19 @@
-# sv
+# SveleKitSummer
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+This project is the current [2025-7-5] Sveltekit demo app configured to be deployed with the node adapter to Coolify.
 
-## Creating a project
+The build.yml tells Github Actions how to build the Dockerfile then uses Coolify's webhook (with auth) to automatically redeploy the project.
 
-If you're seeing this, you've probably already done this step. Congrats!
+---
 
-```bash
-# create a new project in the current directory
-npx sv create
+1. Git push 
+2. Github Actions build the project to Docker Image
+3. Docker image is deployed to Coolify project via webhook
 
-# create a new project in my-app
-npx sv create my-app
-```
+---
 
-## Developing
+It can be kind of a pain to set it up this way, but I promise it's worth it. Building with Coolify takes a lot of resources while also being slow, and can really easily crash the affordable tier of VPS.
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Offloading the build to Actions ensure detailed deployment logs, quick builds, and instant deployment to Coolify. I can't rave enough about how much faster it is.
 
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+---
