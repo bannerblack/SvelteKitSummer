@@ -56,28 +56,7 @@ jobs:
 
       - name: Deploy to Coolify
         if: github.ref == 'refs/heads/main'
-        continue-on-error: true
         run: |
-          echo "Attempting to trigger Coolify deployment..."
-          response=$(curl --write-out "HTTPSTATUS:%{http_code}" \
-            --silent \
-            --request POST \
+          curl --request POST \
             --url "${{ secrets.COOLIFY_WEBHOOK }}" \
-            --header "Authorization: Bearer ${{ secrets.COOLIFY_TOKEN }}" \
-            --header "Content-Type: application/json" \
-            --data '{}' \
-            --connect-timeout 30 \
-            --max-time 60)
-
-          http_code=$(echo $response | tr -d '\n' | sed -e 's/.*HTTPSTATUS://')
-          body=$(echo $response | sed -e 's/HTTPSTATUS\:.*//g')
-
-          echo "HTTP Status: $http_code"
-          echo "Response: $body"
-
-          if [ "$http_code" -ne 200 ] && [ "$http_code" -ne 201 ] && [ "$http_code" -ne 204 ]; then
-            echo "❌ Deployment webhook failed with status $http_code"
-            exit 1
-          else
-            echo "✅ Deployment webhook triggered successfully"
-          fi
+            --header "Authorization: Bearer ${{ secrets.COOLIFY_TOKEN }}"
